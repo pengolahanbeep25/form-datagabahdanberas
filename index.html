@@ -32,11 +32,6 @@
       border-radius: 8px; font-size: 1em; margin-bottom: 10px;
     }
     input:focus { border-color: #0078ff; box-shadow: 0 0 5px rgba(0,120,255,0.3); outline: none; }
-    #rendemen {
-      background: #f0f8ff;
-      font-weight: bold;
-      color: #0078ff;
-    }
     button {
       background: #0078ff; color: #fff; border: none;
       padding: 12px 20px; border-radius: 8px; font-size: 1em;
@@ -45,21 +40,46 @@
     button:hover { background: #005fcc; }
     .note { text-align: center; font-size: 0.9em; color: #777; margin-top: 10px; }
     .success { text-align:center; color:green; margin-top:10px; }
-    .error { text-align:center; color:red; margin-top:10px; }
   </style>
 </head>
 <body>
   <div class="form-container">
-    <h2>Form Input Produksi</h2>
+    <h2>Form Input Stok & Produksi</h2>
     <form id="dataForm">
 
+      <!-- GKP -->
+      <fieldset>
+        <legend>Gabah Kering Panen</legend>
+        <label>Stok hari ini (Ton)</label><input type="number" step="0.01" name="gkp_stok" value="0">
+        <label>Kadar air (%)</label><input type="number" name="gkp_kadar_air">
+        <label>Harga Petani (Rp)</label><input type="number" name="gkp_harga_petani">
+        <label>Harga Penggilingan (Rp)</label><input type="number" name="gkp_harga_penggilingan">
+      </fieldset>
+
+      <!-- GKG -->
+      <fieldset>
+        <legend>Gabah Kering Giling</legend>
+        <label>Stok hari ini (Ton)</label><input type="number" step="0.01" name="gkg_stok" value="0">
+        <label>Kadar air (%)</label><input type="number" name="gkg_kadar_air">
+        <label>Harga Petani (Rp)</label><input type="number" name="gkg_harga_petani">
+        <label>Harga Penggilingan (Rp)</label><input type="number" name="gkg_harga_penggilingan">
+      </fieldset>
+
+      <!-- Beras -->
+      <fieldset>
+        <legend>Beras</legend>
+        <label>Stok hari ini (Ton)</label><input type="number" step="0.01" name="beras_stok" value="0">
+        <label>Kadar air (%)</label><input type="number" name="beras_kadar_air">
+        <label>Harga (Rp)</label><input type="number" name="beras_harga">
+      </fieldset>
+
+      <!-- Produksi -->
       <fieldset>
         <legend>Produksi Hari Ini</legend>
-        <label>Jenis Gabah Giling</label><input type="text" name="jenis_gabah" required>
-        <label>Jumlah Gabah Digiling</label><input type="number" id="jumlah_giling" name="jumlah_giling" required>
-        <label>Hasil Beras</label><input type="number" id="hasil_beras" name="hasil_beras" required>
-        <label>Rendemen (%)</label>
-        <input type="number" id="rendemen" name="rendemen" readonly>
+        <label>Jenis Gabah Giling</label><input type="text" name="jenis_gabah">
+        <label>Jumlah Gabah Digiling (Kg)</label><input type="number" id="jumlah_giling" name="jumlah_giling">
+        <label>Hasil Beras (Kg)</label><input type="number" id="hasil_beras" name="hasil_beras">
+        <label>Rendemen (%)</label><input type="number" id="rendemen" name="rendemen" readonly style="background:#f3f3f3;">
         <label>Faktor Penurunan</label><input type="text" name="penurunan">
         <label>Varietas</label><input type="text" name="varietas">
         <label>Asal Gabah</label><input type="text" name="asal_gabah">
@@ -68,13 +88,12 @@
 
       <button type="submit">Simpan Data</button>
       <p class="note">Pastikan data sudah benar sebelum menyimpan.</p>
-      <p id="msg"></p>
+      <p id="msg" class="success"></p>
     </form>
   </div>
 
   <script>
     const scriptURL = "https://script.google.com/macros/s/AKfycbzwrmU7VifshCRy1gaaKDjdSi1A6WlofMC35EGL8x93Xikzt2n74UJpDwW4WnG-cdJ-/exec";
-
     const form = document.getElementById("dataForm");
     const msg = document.getElementById("msg");
 
@@ -98,40 +117,47 @@
 
     form.addEventListener("submit", e => {
       e.preventDefault();
-
-      if (!jumlahGiling.value || !hasilBeras.value) {
-        msg.textContent = "❌ Jumlah giling dan hasil beras wajib diisi!";
-        msg.className = "error";
-        return;
-      }
-
       const fd = new FormData(form);
+
+      const stokHarga = {
+        type: "stokHarga",
+        gkp_stok: fd.get("gkp_stok"),
+        gkp_kadar_air: fd.get("gkp_kadar_air"),
+        gkp_harga_petani: fd.get("gkp_harga_petani"),
+        gkp_harga_penggilingan: fd.get("gkp_harga_penggilingan"),
+        gkg_stok: fd.get("gkg_stok"),
+        gkg_kadar_air: fd.get("gkg_kadar_air"),
+        gkg_harga_petani: fd.get("gkg_harga_petani"),
+        gkg_harga_penggilingan: fd.get("gkg_harga_penggilingan"),
+        beras_stok: fd.get("beras_stok"),
+        beras_kadar_air: fd.get("beras_kadar_air"),
+        beras_harga: fd.get("beras_harga")
+      };
 
       const produksi = {
         type: "produksi",
         jenis_gabah: fd.get("jenis_gabah"),
         jumlah_giling: fd.get("jumlah_giling"),
         hasil_beras: fd.get("hasil_beras"),
-        rendemen: fd.get("rendemen"),
+        rendemen: fd.get("rendemen"), // otomatis
         penurunan: fd.get("penurunan"),
         varietas: fd.get("varietas"),
         asal_gabah: fd.get("asal_gabah"),
         nama_petani: fd.get("nama_petani")
       };
 
-      fetch(scriptURL, { method: "POST", body: JSON.stringify(produksi) })
-        .then(() => {
-          msg.textContent = "✅ Data berhasil disimpan!";
-          msg.className = "success";
-          form.reset();
-          rendemen.value = "";
-          setTimeout(() => msg.textContent = "", 3000); // pesan hilang setelah 3 detik
-        })
-        .catch(() => {
-          msg.textContent = "❌ Gagal menyimpan data.";
-          msg.className = "error";
-          setTimeout(() => msg.textContent = "", 3000);
-        });
+      Promise.all([
+        fetch(scriptURL, { method: "POST", body: JSON.stringify(stokHarga) }),
+        fetch(scriptURL, { method: "POST", body: JSON.stringify(produksi) })
+      ])
+      .then(() => {
+        msg.textContent = "✅ Data berhasil disimpan!";
+        form.reset();
+        rendemen.value = ""; // reset rendemen
+      })
+      .catch(() => {
+        msg.textContent = "❌ Gagal menyimpan data.";
+      });
     });
   </script>
 </body>
