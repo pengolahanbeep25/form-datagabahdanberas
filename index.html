@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Laporan Gabah & Beras</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://st2.depositphotos.com/4126039/9092/i/950/depositphotos_90926460-stock-photo-farmers-harvesting-rice-in-rice.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background: #ffffff;
+      max-width: 600px;
+      width: 90%;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    fieldset {
+      border: none;
+      margin-bottom: 20px;
+    }
+
+    legend {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      color: #444;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 5px;
+      display: block;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-size: 0.95em;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+      margin-bottom: 10px;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #0078ff;
+      box-shadow: 0 0 5px rgba(0, 120, 255, 0.3);
+    }
+
+    button {
+      background: #0078ff;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1em;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #005fcc;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 0.9em;
+      color: #777;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Form Input Stok & Produksi</h2>
+    <form id="dataForm">
+
+      <fieldset>
+        <legend>Gabah Kering Panen</legend>
+        <label>Stok hari ini</label>
+        <input type="number" name="gkp_stok" placeholder="kg">
+        <label>Kadar air (%)</label>
+        <input type="number" name="gkp_kadar_air" placeholder="%">
+        <label>Harga Petani (Rp)</label>
+        <input type="number" name="gkp_harga_petani" placeholder="Rp">
+        <label>Harga Penggilingan (Rp)</label>
+        <input type="number" name="gkp_harga_penggilingan" placeholder="Rp">
+      </fieldset>
+
+      <fieldset>
+        <legend>Gabah Kering Giling</legend>
+        <label>Stok hari ini</label>
+        <input type="number" name="gkg_stok" placeholder="kg">
+        <label>Kadar air (%)</label>
+        <input type="number" name="gkg_kadar_air" placeholder="%">
+        <label>Harga Petani (Rp)</label>
+        <input type="number" name="gkg_harga_petani" placeholder="Rp">
+        <label>Harga Penggilingan (Rp)</label>
+        <input type="number" name="gkg_harga_penggilingan" placeholder="Rp">
+      </fieldset>
+
+      <fieldset>
+        <legend>Beras</legend>
+        <label>Stok hari ini</label>
+        <input type="number" name="beras_stok" placeholder="kg">
+        <label>Kadar air (%)</label>
+        <input type="number" name="beras_kadar_air" placeholder="%">
+        <label>Harga (Rp)</label>
+        <input type="number" name="beras_harga" placeholder="Rp">
+      </fieldset>
+
+      <fieldset>
+        <legend>Produksi Hari Ini</legend>
+        <label>Jenis Gabah Giling</label>
+        <input type="text" name="jenis_gabah" placeholder="misal: IR64">
+        <label>Jumlah Gabah Digiling</label>
+        <input type="number" name="jumlah_giling" placeholder="kg">
+        <label>Hasil Beras</label>
+        <input type="number" name="hasil_beras" placeholder="kg">
+        <label>Rendemen (%)</label>
+        <input type="text" name="rendemen" id="rendemen" disabled placeholder="otomatis terhitung">
+        <label>Faktor Penurunan</label>
+        <input type="text" name="penurunan" placeholder="misal: kadar air tinggi">
+        <label>Varietas</label>
+        <input type="text" name="varietas" placeholder="misal: Ciherang">
+        <label>Asal Gabah</label>
+        <input type="text" name="asal_gabah" placeholder="nama daerah">
+        <label>Nama Petani</label>
+        <input type="text" name="nama_petani" placeholder="wajib diisi" required>
+      </fieldset>
+
+      <button type="submit">Simpan Data</button>
+      <p class="note">Pastikan data sudah benar sebelum menyimpan.</p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("dataForm");
+    const jumlahGiling = form.querySelector("[name='jumlah_giling']");
+    const hasilBeras = form.querySelector("[name='hasil_beras']");
+    const rendemen = document.getElementById("rendemen");
+
+    function hitungRendemen() {
+      const giling = parseFloat(jumlahGiling.value) || 0;
+      const beras = parseFloat(hasilBeras.value) || 0;
+      if (giling > 0 && beras >= 0) {
+        rendemen.value = ((beras / giling) * 100).toFixed(2);
+      } else {
+        rendemen.value = "";
+      }
+    }
+
+    jumlahGiling.addEventListener("input", hitungRendemen);
+    hasilBeras.addEventListener("input", hitungRendemen);
+
+    // === POST ke Google Apps Script ===
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      const response = await fetch("https://script.google.com/macros/s/AKfycbwTno6t-ORMTa8YHB1NWaljtM81_ikLrb_TiWsKaAsFNs8dwByJEFm-GgEepA717f_LHA/exec", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (response.ok) {
+        alert("Data berhasil disimpan ke Google Spreadsheet!");
+        form.reset();
+        rendemen.value = "";
+      } else {
+        alert("Gagal simpan data.");
+      }
+    });
+  </script>
+</body>
+</html>
