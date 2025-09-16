@@ -6,40 +6,93 @@
   <title>Form Laporan Gabah & Beras</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: url('https://t4.ftcdn.net/jpg/09/23/37/37/360_F_923373737_tJmryM0pG5P19Y7ES8G2Rdy6t50uoMqq.jpg') no-repeat center center fixed;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
       background-size: cover;
-      margin: 0; padding: 0;
-      display: flex; justify-content: center; align-items: flex-start;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
       min-height: 100vh;
     }
+
     .form-container {
       background: #ffffff;
-      max-width: 600px; width: 90%;
-      margin: 40px auto; padding: 30px;
+      max-width: 600px;
+      width: 90%;
+      margin: 40px auto;
+      padding: 30px;
       border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
-    h2 { text-align: center; margin-bottom: 20px; color: #333; }
-    fieldset { border: none; margin-bottom: 20px; }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    fieldset {
+      border: none;
+      margin-bottom: 20px;
+    }
+
     legend {
-      font-weight: bold; font-size: 1.1em; margin-bottom: 10px; color: #444;
-      border-bottom: 2px solid #ddd; padding-bottom: 5px; display: block;
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      color: #444;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 5px;
+      display: block;
     }
-    label { display: block; margin: 10px 0 5px; font-size: 0.95em; color: #555; }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-size: 0.95em;
+      color: #555;
+    }
+
     input {
-      width: 100%; padding: 10px 12px; border: 1px solid #ccc;
-      border-radius: 8px; font-size: 1em; margin-bottom: 10px;
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+      margin-bottom: 10px;
+      transition: border-color 0.2s;
     }
-    input:focus { border-color: #0078ff; box-shadow: 0 0 5px rgba(0,120,255,0.3); outline: none; }
+
+    input:focus {
+      outline: none;
+      border-color: #0078ff;
+      box-shadow: 0 0 5px rgba(0, 120, 255, 0.3);
+    }
+
     button {
-      background: #0078ff; color: #fff; border: none;
-      padding: 12px 20px; border-radius: 8px; font-size: 1em;
-      width: 100%; cursor: pointer; transition: background 0.3s;
+      background: #0078ff;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1em;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.3s;
     }
-    button:hover { background: #005fcc; }
-    .note { text-align: center; font-size: 0.9em; color: #777; margin-top: 10px; }
-    .success { text-align:center; color:green; margin-top:10px; }
+
+    button:hover {
+      background: #005fcc;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 0.9em;
+      color: #777;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -47,105 +100,83 @@
     <h2>Form Input Stok & Produksi</h2>
     <form id="dataForm">
 
-      <!-- GKP -->
       <fieldset>
         <legend>Gabah Kering Panen</legend>
-        <label>Stok hari ini</label><input type="number" name="gkp_stok">
-        <label>Kadar air (%)</label><input type="number" name="gkp_kadar_air">
-        <label>Harga Petani (Rp)</label><input type="number" name="gkp_harga_petani">
-        <label>Harga Penggilingan (Rp)</label><input type="number" name="gkp_harga_penggilingan">
+        <label>Stok hari ini</label>
+        <input type="number" name="gkp_stok" placeholder="kg">
+        <label>Kadar air (%)</label>
+        <input type="number" name="gkp_kadar_air" placeholder="%">
+        <label>Harga Petani (Rp)</label>
+        <input type="number" name="gkp_harga_petani" placeholder="Rp">
+        <label>Harga Penggilingan (Rp)</label>
+        <input type="number" name="gkp_harga_penggilingan" placeholder="Rp">
       </fieldset>
 
-      <!-- GKG -->
       <fieldset>
         <legend>Gabah Kering Giling</legend>
-        <label>Stok hari ini</label><input type="number" name="gkg_stok">
-        <label>Kadar air (%)</label><input type="number" name="gkg_kadar_air">
-        <label>Harga Petani (Rp)</label><input type="number" name="gkg_harga_petani">
-        <label>Harga Penggilingan (Rp)</label><input type="number" name="gkg_harga_penggilingan">
+        <label>Stok hari ini</label>
+        <input type="number" name="gkg_stok" placeholder="kg">
+        <label>Kadar air (%)</label>
+        <input type="number" name="gkg_kadar_air" placeholder="%">
+        <label>Harga Petani (Rp)</label>
+        <input type="number" name="gkg_harga_petani" placeholder="Rp">
+        <label>Harga Penggilingan (Rp)</label>
+        <input type="number" name="gkg_harga_penggilingan" placeholder="Rp">
       </fieldset>
 
-      <!-- Beras -->
       <fieldset>
         <legend>Beras</legend>
-        <label>Stok hari ini</label><input type="number" name="beras_stok">
-        <label>Kadar air (%)</label><input type="number" name="beras_kadar_air">
-        <label>Harga (Rp)</label><input type="number" name="beras_harga">
+        <label>Stok hari ini</label>
+        <input type="number" name="beras_stok" placeholder="kg">
+        <label>Kadar air (%)</label>
+        <input type="number" name="beras_kadar_air" placeholder="%">
+        <label>Harga (Rp)</label>
+        <input type="number" name="beras_harga" placeholder="Rp">
       </fieldset>
 
-      <!-- Produksi -->
       <fieldset>
         <legend>Produksi Hari Ini</legend>
-        <label>Jenis Gabah Giling</label><input type="text" name="jenis_gabah">
-        <label>Jumlah Gabah Digiling</label><input type="number" name="jumlah_giling">
-        <label>Hasil Beras</label><input type="number" name="hasil_beras">
-        <label>Rendemen (%)</label><input type="number" name="rendemen">
-        <label>Faktor Penurunan</label><input type="text" name="penurunan">
-        <label>Varietas</label><input type="text" name="varietas">
-        <label>Asal Gabah</label><input type="text" name="asal_gabah">
-        <label>Nama Petani</label><input type="text" name="nama_petani">
+        <label>Jenis Gabah Giling</label>
+        <input type="text" name="jenis_gabah" placeholder="misal: IR64">
+        <label>Jumlah Gabah Digiling</label>
+        <input type="number" name="jumlah_giling" placeholder="kg">
+        <label>Hasil Beras</label>
+        <input type="number" name="hasil_beras" placeholder="kg">
+        <label>Rendemen (%)</label>
+        <input type="number" name="rendemen" readonly placeholder="otomatis terhitung">
+        <label>Faktor Penurunan</label>
+        <input type="text" name="penurunan" placeholder="misal: kadar air tinggi">
+        <label>Varietas</label>
+        <input type="text" name="varietas" placeholder="misal: Ciherang">
+        <label>Asal Gabah</label>
+        <input type="text" name="asal_gabah" placeholder="nama daerah">
+        <label>Nama Petani</label>
+        <input type="text" name="nama_petani" placeholder="wajib diisi" required>
       </fieldset>
 
       <button type="submit">Simpan Data</button>
       <p class="note">Pastikan data sudah benar sebelum menyimpan.</p>
-      <p id="msg" class="success"></p>
     </form>
   </div>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbzwrmU7VifshCRy1gaaKDjdSi1A6WlofMC35EGL8x93Xikzt2n74UJpDwW4WnG-cdJ-/exec"; // <-- ganti dengan URL Web App dari Apps Script
-
     const form = document.getElementById("dataForm");
-    const msg = document.getElementById("msg");
+    const jumlahGiling = form.querySelector("[name='jumlah_giling']");
+    const hasilBeras = form.querySelector("[name='hasil_beras']");
+    const rendemen = form.querySelector("[name='rendemen']");
 
-    form.addEventListener("submit", e => {
-      e.preventDefault();
+    function hitungRendemen() {
+      const giling = parseFloat(jumlahGiling.value) || 0;
+      const beras = parseFloat(hasilBeras.value) || 0;
+      if (giling > 0 && beras >= 0) {
+        rendemen.value = ((beras / giling) * 100).toFixed(2);
+      } else {
+        rendemen.value = "";
+      }
+    }
 
-      // Ambil data form
-      const fd = new FormData(form);
-
-      // Kirim stok & harga
-      const stokHarga = {
-        type: "stokHarga",
-        gkp_stok: fd.get("gkp_stok"),
-        gkp_kadar_air: fd.get("gkp_kadar_air"),
-        gkp_harga_petani: fd.get("gkp_harga_petani"),
-        gkp_harga_penggilingan: fd.get("gkp_harga_penggilingan"),
-        gkg_stok: fd.get("gkg_stok"),
-        gkg_kadar_air: fd.get("gkg_kadar_air"),
-        gkg_harga_petani: fd.get("gkg_harga_petani"),
-        gkg_harga_penggilingan: fd.get("gkg_harga_penggilingan"),
-        beras_stok: fd.get("beras_stok"),
-        beras_kadar_air: fd.get("beras_kadar_air"),
-        beras_harga: fd.get("beras_harga")
-      };
-
-      // Kirim produksi
-      const produksi = {
-        type: "produksi",
-        jenis_gabah: fd.get("jenis_gabah"),
-        jumlah_giling: fd.get("jumlah_giling"),
-        hasil_beras: fd.get("hasil_beras"),
-        rendemen: fd.get("rendemen"),
-        penurunan: fd.get("penurunan"),
-        varietas: fd.get("varietas"),
-        asal_gabah: fd.get("asal_gabah"),
-        nama_petani: fd.get("nama_petani")
-      };
-
-      // Kirim ke Apps Script
-      Promise.all([
-        fetch(scriptURL, { method: "POST", body: JSON.stringify(stokHarga) }),
-        fetch(scriptURL, { method: "POST", body: JSON.stringify(produksi) })
-      ])
-      .then(() => {
-        msg.textContent = "✅ Data berhasil disimpan!";
-        form.reset();
-      })
-      .catch(() => {
-        msg.textContent = "❌ Gagal menyimpan data.";
-      });
-    });
+    jumlahGiling.addEventListener("input", hitungRendemen);
+    hasilBeras.addEventListener("input", hitungRendemen);
   </script>
 </body>
 </html>
